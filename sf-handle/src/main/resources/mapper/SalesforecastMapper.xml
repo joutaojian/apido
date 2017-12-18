@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ee.java2.handle.dao.SalesforecastDao">
+
+    <select id="getSalesforecast" resultType="ee.java2.handle.bean.Salesforecast" parameterType="String">
+        SELECT
+        *
+        FROM data_result
+        WHERE REPLACE(StoreID ,'.0','') = #{storeId} ORDER BY id DESC LIMIT 1
+    </select>
+
+    <select id="getStores" resultType="ee.java2.handle.bean.Store">
+        select DISTINCT REPLACE(r.StoreID ,'.0','') AS storeId,d.StoreName AS storeName from data_result r left join order_data d on d.StoreID = REPLACE(r.StoreID ,'.0','') where d.StoreName is not null
+    </select>
+
+</mapper>
